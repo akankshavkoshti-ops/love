@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jackson & Akanksha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Lora:wght@400;500&family=Sacramento&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #fdf8f2;
+      --bg-soft: #f9ecec;
+      --card: #fffdf9;
+      --line: #d8a5ad;
+      --text: #5a3e3e;
+      --text-soft: #7a5c5c;
+      --accent: #c98392;
+      --accent-dark: #a86d7e;
+      --tag-bg: #fceef0;
+      --shadow: 0 10px 30px rgba(90, 62, 62, 0.1);
+      --radius: 22px;
+    }
+
+    body {
+      font-family: 'Lora', serif;
+      background:
+        radial-gradient(circle at top left, rgba(201, 131, 146, 0.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(168, 109, 126, 0.10), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 72px 0 48px;
+    }
+
+    .eyebrow {
+      font-family: 'Sacramento', cursive;
+      font-size: 2.2rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    h1 span {
+      font-style: italic;
+      color: var(--accent-dark);
+    }
+
+    .date-line {
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      color: var(--accent-dark);
+      margin-bottom: 20px;
+    }
+
+    .intro {
+      max-width: 640px;
+      margin: 0 auto;
+      color: var(--text-soft);
+      font-size: 1rem;
+    }
+
+    .divider {
+      width: 180px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      margin: 24px auto;
+      position: relative;
+    }
+
+    .divider::after {
+      content: '♥';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--bg);
+      padding: 0 10px;
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding: 24px 0 80px;
+    }
+
+    .event:nth-child(even) {
+  	direction: rtl;
+	}
+
+    .event:nth-child(even) .text {
+  	direction: ltr;
+	}
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--line), transparent);
+      transform: translateX(-50%);
+    }
+
+    .event {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 56px;
+    }
+
+    .event:nth-child(even) .text {
+      order: 3;
+      text-align: left;
+    }
+
+    .event:nth-child(even) .photo {
+      order: 1;
+    }
+
+    .event:nth-child(even) .dot-wrap {
+      order: 2;
+    }
+
+    .photo-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(201, 131, 146, 0.12);
+    }
+
+    .photo-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      border-radius: 16px;
+    }
+
+    .caption {
+      text-align: center;
+      margin-top: 10px;
+      font-family: 'Sacramento', cursive;
+      font-size: 1.5rem;
+      color: var(--text-soft);
+    }
+
+    .dot-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .dot {
+      width: 18px;
+      height: 18px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 4px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    .text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .event-date {
+      color: var(--accent);
+      font-family: 'Sacramento', cursive;
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+
+    .text p {
+      color: var(--text-soft);
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--tag-bg);
+      color: var(--accent-dark);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    footer {
+      text-align: center;
+      padding: 12px 0 72px;
+    }
+
+    footer h3 {
+      font-family: 'Sacramento', cursive;
+      font-size: 2.8rem;
+      color: var(--accent-dark);
+      margin-bottom: 8px;
+    }
+
+    footer p {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 800px) {
+      .timeline::before {
+        left: 20px;
+        transform: none;
+      }
+
+      .event,
+      .event:nth-child(even) {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding-left: 42px;
+        position: relative;
+      }
+
+      .dot-wrap,
+      .event:nth-child(even) .dot-wrap {
+        position: absolute;
+        left: 12px;
+        top: 16px;
+        order: unset;
+        justify-content: flex-start;
+      }
+
+      .photo,
+      .text,
+      .event:nth-child(even) .photo,
+      .event:nth-child(even) .text {
+        order: unset;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <p class="eyebrow">a little story about</p>
+      <h1>Jackson <span>&</span> Akanksha</h1>
+      <p class="date-line">January 26, 2026 - ♾️</p>
+      <div class="divider"></div>
+      <p class="intro">
+        I don’t think there was ever a single moment where everything changed. 
+	It just happened quietly, over time. 
+	Somewhere between random conversations, small laughs, and days that didn’t 
+ 	seem important at all, you became someone I started caring about more than I expected. 
+	And now, when I look back at those moments, they don’t feel small anymore. 
+	They feel like the beginning of something that actually matters to me. 💕
+      </p>
+    </header>
+
+    <section class="timeline">
+      <article class="event">
+        <div class="photo">
+          <div class="photo-card">
+            <img src="images/bus-stop.png" alt="Bus stop memory" />
+            <p class="caption">The beginning</p>
+          </div>
+        </div>
+        <div class="dot-wrap"><div class="dot"></div></div>
+        <div class="text">
+          <div class="event-date">January 26, 2026</div>
+          <h2>Bus Stop in the Snow</h2>
+          <p>
+            This was the first time I met you, and I still remember thinking you were really cute. It felt like such a random conversation on such a casual day, and I never would have guessed that someone I met so simply would end up meaning this much to me. At the time, it just felt like a small moment. But looking back now, it was the beginning of something really special.
+          </p>
+          <span class="tag">first memory</span>
+        </div>
+      </article>
+
+	<article class="event">
+        <div class="photo">
+          <div class="photo-card">
+            <img src="images/85-times.png" alt="85 times" />
+            <p class="caption">sweetest thing ever</p>
+          </div>
+        </div>
+        <div class="dot-wrap"><div class="dot"></div></div>
+        <div class="text">
+          <div class="event-date">January 27, 2026</div>
+          <h2>You wrote my name 85 times!</h2>
+          <p>
+            TThis was so unexpected. You wrote my name 85 times just because you had never heard it before and you wanted to make sure you spelled it right. I still cannot believe someone would do something that thoughtful over something so small. It was one of the sweetest and most romantic things anyone has ever done for me, and I think a part of me knew then that you were different.
+          </p>
+          <span class="tag">sweetest thing</span>
+        </div>
+      </article>
+
+
+	<article class="event">
+        <div class="photo">
+          <div class="photo-card">
+            <img src="images/dining-hall.png" alt="Dining hall memory" />
+            <p class="caption">Little moments</p>
+          </div>
+        </div>
+        <div class="dot-wrap"><div class="dot"></div></div>
+        <div class="text">
+          <div class="event-date">February 1, 2026</div>
+          <h2>Dining Hall Glances</h2>
+          <p>
+            This was the first time I really got to know you more, like your age and 	everything. I didn’t think I’d ever be into someone younger, but you’re so mature, 	so kind, and so genuine. You’re honestly one of the best people I’ve met, 
+	and I’m really glad it was you.
+          </p>
+          <span class="tag">everyday magic</span>
+        </div>
+      </article>
+
+	<article class="event">
+        <div class="photo">
+          <div class="photo-card">
+            <img src="images/movie-date.png" alt="Movie Date memory" />
+            <p class="caption">movie night</p>
+          </div>
+        </div>
+        <div class="dot-wrap"><div class="dot"></div></div>
+        <div class="text">
+          <div class="event-date">February 3, 2026</div>
+          <h2>The Lorax & Better Call Saul</h2>
+          <p>
+            I’ve always wanted someone to watch shows with, someone I could talk to about 	the same things and have little inside jokes with. When you suggested we start 	something, I didn’t think we’d even get past two episodes. But now we’re almost 	done… and I think that says a lot. You’re a keeper.
+          </p>
+          <span class="tag">stay-in night</span>
+        </div>
+      </article>
+
+	<article class="event">
+        <div class="photo">
+          <div class="photo-card">
+            <img src="images/squash-date.png" alt="Squash Play off" />
+            <p class="caption">Game on 🎾</p>
+          </div>
+        </div>
+        <div class="dot-wrap"><div class="dot"></div></div>
+        <div class="text">
+          <div class="event-date">February 7, 2026</div>
+          <h2>Squash Showdown</h2>
+          <p>
+            I hate to say this, but you really suck at squash. But it’s okay, we’ll get 	better together. And I actually love working out with you. You’re the one who 	pushes me and makes me want to be a better version of myself.
+          </p>
+          <span class="tag">friendly rivalry</span>
+        </div>
+      </article>
+
+      <article class="event">
+        <div class="photo">
+          <div class="photo-card">
+            <img src="images/frozen-lake.png" alt="Frozen lake date" />
+            <p class="caption">Winter days</p>
+          </div>
+        </div>
+        <div class="dot-wrap"><div class="dot"></div></div>
+        <div class="text">
+          <div class="event-date">February 7, 2026</div>
+          <h2>Walking by the Frozen Lake</h2>
+          <p>
+            This was such a random idea, but it turned into one of the most magical 	moments. Just us, dancing and laughing on a frozen lake, not caring about anything else. It felt so light and happy. I think that’s one of my favorite memories with you.
+          </p>
+          <span class="tag">winter date</span>
+        </div>
+      </article>
+
+	<article class="event">
+        <div class="photo">
+          <div class="photo-card">
+            <img src="images/career-fair.png" alt="small note" />
+            <p class="caption">small note</p>
+          </div>
+        </div>
+        <div class="dot-wrap"><div class="dot"></div></div>
+        <div class="text">
+          <div class="event-date">February 11, 2026</div>
+          <h2>The Little Note You Left</h2>
+          <p>
+            I still remember accidentally running into you, and then we both went in different directions. When I came back and did not see your bag there anymore, I felt strangely disappointed, like I had missed my chance to see you again. But then I found the little note you left for me, and that completely changed everything. It was such a small gesture, but it meant so much. It made me feel seen, and I still think that was one of the sweetest things you have ever done.
+          </p>
+          <span class="tag">small note</span>
+        </div>
+      </article>
+
+      <article class="event">
+        <div class="photo">
+          <div class="photo-card">
+            <img src="images/bowling-night.png" alt="Bowling night" />
+            <p class="caption">Game night</p>
+          </div>
+        </div>
+        <div class="dot-wrap"><div class="dot"></div></div>
+        <div class="text">
+          <div class="event-date">February 12, 2026</div>
+          <h2>Bowling Night</h2>
+          <p>
+            Okay, you have to admit you lost. I mean… I won the first one, you won the 	second. But honestly, that’s how it’s always going to be. Sometimes you win, 	sometimes I do, but at the end of the day, it’s always us together.
+          </p>
+          <span class="tag">she won</span>
+        </div>
+      </article>
+
+	<article class="event">
+        <div class="photo">
+          <div class="photo-card">
+            <img src="images/sun-date.png" alt="Sunny afternoon together" />
+            <p class="caption">Golden afternoon</p>
+          </div>
+        </div>
+        <div class="dot-wrap"><div class="dot"></div></div>
+        <div class="text">
+          <div class="event-date">February 14, 2026</div>
+          <h2>Valentine's on the Grass</h2>
+          <p>
+            It wasn’t anything fancy, just sitting on the grass, talking about life, doing 	nothing special. But that’s what made it so nice. Just being there with you, 	enjoying the moment. Those are the kind of things I want more of… the simple, real ones.
+          </p>
+          <span class="tag">favorite day</span>
+        </div>
+      </article>
+
+	<article class="event">
+  <div class="photo">
+    <div class="photo-card">
+      <img src="images/first-kiss.png" alt="first kiss" />
+      <p class="caption">first kiss</p>
+    </div>
+  </div>
+  <div class="dot-wrap"><div class="dot"></div></div>
+  <div class="text">
+    <div class="event-date">March 6, 2026</div>
+    <h2>Our First Kiss</h2>
+    <p>
+      It was magical and so unexpected, but at the same time it felt so natural. It’s one of those moments I know I’ll always remember. Ever since then, every hug, every cuddle, every little moment with you has felt even more special. I just feel excited thinking about all the kisses and memories we still have ahead of us.
+    </p>
+    <span class="tag">first kiss</span>
+  </div>
+</article>
+
+<article class="event">
+  <div class="photo">
+    <div class="photo-card">
+      <img src="images/gf-bf.png" alt="asked to be girlfriend" />
+      <p class="caption">finally</p>
+    </div>
+  </div>
+  <div class="dot-wrap"><div class="dot"></div></div>
+  <div class="text">
+    <div class="event-date">April 3, 2026</div>
+    <h2>You Asked Me to Be Yours</h2>
+    <p>
+      I honestly thought you would never ask, even though I was secretly hoping you would do it sooner. But when you finally did, it felt so genuine and so you that I couldn’t even complain. I was just happy. Happy to say yes, and really happy to be your girlfriend… Jackson’s girlfriend.
+    </p>
+    <span class="tag">official</span>
+  </div>
+</article>
+
+
+	<article class="event">
+  <div class="photo">
+    <div class="photo-card">
+      <img src="images/i-love-you.png" alt="i love you" />
+      <p class="caption">you said it</p>
+    </div>
+  </div>
+  <div class="dot-wrap"><div class="dot"></div></div>
+  <div class="text">
+    <div class="event-date">April 16, 2026</div>
+    <h2>The First “I Love You”</h2>
+    <p>
+      You said it and then tried to blame it on being sleepy, and even asked me if you actually said it out loud. Yes, you did. And I don’t think it was just a slip of the tongue. I think you said it because you meant it. And I just want you to know… I meant it too. I love you, and I always will.
+    </p>
+    <span class="tag">i love you</span>
+  </div>
+</article>
+
+
+
+    <footer>
+      <h3>our little timeline</h3>
+      <p>Made with simple HTML and an images folder.</p>
+    </footer>
+  </div>
+</body>
+</html>
